@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\TamalController;
@@ -44,7 +45,8 @@ Route::post('tamal/nuevo', [TamalController::class, 'store']);
 Route::post('tamal/eliminar', [TamalController::class, 'destroy']);
 
 //Produccion
-Route::post('producciones', [ProductoController::class, 'list']);
-Route::get('produccion/{id}', [ProductoController::class, 'index']);
-Route::post('produccion/nuevo', [ProductoController::class, 'store']);
-Route::post('produccion/eliminar', [ProductoController::class, 'destroy']);
+
+Route::get('producciones', [ProduccionController::class, 'index']); // con nombre_tamal
+Route::get('producciones/base', [ProduccionController::class, 'list']); // sin relaciones (opcional)
+Route::post('produccion/nuevo', [ProduccionController::class, 'store']);
+Route::post('produccion/eliminar', [ProduccionController::class, 'destroy']);
