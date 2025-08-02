@@ -7,37 +7,55 @@ use Illuminate\Http\Request;
 
 class ProduccionController extends Controller
 {
-    public function index($id)
+    // Listar todas las producciones con nombre del tamal
+    public function index()
     {
-        $produccion = Produccion::find($id);
-        return $produccion;
+        $producciones = Produccion::with('tamal')->get();
+
+        $formateadas = $producciones->map(function ($item) {
+            return [
+                'id_produccion' => $item->id_produccion,
+                'fecha' => $item->fecha,
+                'cantidad_total' => $item->cantidad_total,
+                'id_tamal' => $item->id_tamal,
+                'nombre_tamal' => $item->tamal->nombre_tamal ?? 'Sin asignar',
+            ];
+        });
+
+        return response()->json($formateadas);
     }
 
+    // Listar sin relaciones (si se requiere solo los campos puros)
     public function list()
     {
-        $produccion = Produccion::all();
-        return $produccion;
+        return Produccion::all();
     }
 
+    // Crear o actualizar producción
     public function store(Request $request)
     {
-        if ($request->id == 0) {
-            $produccion = new Produccion();
-        } else {
-            $produccion = Produccion::find($request->id);
-        }
+        $produccion = $request->id == 0 
+            ? new Produccion() 
+            : Produccion::find($request->id);
 
         $produccion->id_tamal = $request->id_tamal;
         $produccion->fecha = $request->fecha;
         $produccion->cantidad_total = $request->cantidad_total;
         $produccion->save();
-        return 'ok';
+
+        return response()->json(['status' => 'ok']);
     }
 
+    // Eliminar una producción
     public function destroy(Request $request)
     {
         $produccion = Produccion::find($request->id);
-        $produccion->delete();
-        return 'ok';
+
+        if ($produccion) {
+            $produccion->delete();
+            return response()->json(['status' => 'ok']);
+        }
+
+        return response()->json(['status' => 'not found'], 404);
     }
 }
