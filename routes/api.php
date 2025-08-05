@@ -46,7 +46,8 @@ Route::post('tamal/eliminar', [TamalController::class, 'destroy']);
 
 //Produccion
 
-Route::get('producciones', [ProduccionController::class, 'index']); // con nombre_tamal
-Route::get('producciones/base', [ProduccionController::class, 'list']); // sin relaciones (opcional)
+Route::get('producciones', [ProduccionController::class, 'list']); // con nombre_tamal
+Route::get('produccion/{id}', [ProduccionController::class, 'index']);
+//Route::get('producciones/base', [ProduccionController::class, 'list']); // sin relaciones (opcional)
 Route::post('produccion/nuevo', [ProduccionController::class, 'store']);
 Route::post('produccion/eliminar', [ProduccionController::class, 'destroy']);
