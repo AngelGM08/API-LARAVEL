@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Producto;
 
 class Compra extends Model
 {
@@ -15,4 +16,10 @@ class Compra extends Model
         'unidad',
         'total',
     ];
+        public function producto()
+{
+    return $this->belongsTo(Producto::class, 'id_producto');
 }
+}
+
+

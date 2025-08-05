@@ -9,14 +9,20 @@ class CompraController extends Controller
 {
     public function index($id)
     {
-        $compra = Compra::find($id);
+         $compra = Compra::with('producto')->find($id);
         return $compra;
     }
 
     public function list()
-    {
-        $compra = Compra::all();
-        return $compra;
+     {
+        $compras = Compra::all();
+
+        // Cargar la relación manualmente para cada compra
+        foreach ($compras as $compra) {
+            $compra->producto; // Esto carga el producto asociado
+        }
+
+        return response()->json($compras); // Usar response()->json() por buenas prácticas
     }
 
     public function store(Request $request)

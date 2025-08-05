@@ -37,6 +37,7 @@ class ProduccionController extends Controller
                 'cantidad_total' => $item->cantidad_total,
                 'id_tamal' => $item->id_tamal,
                 'nombre_tamal' => $item->tamal->nombre_tamal ?? 'Sin asignar',
+                'tamal' => $item->tamal,
             ];
         });
 

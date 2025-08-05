@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\TamalController;
 use App\Http\Controllers\usuariosController;
+use App\Http\Controllers\InsumoController;
+
 use Illuminate\Support\Facades\Route;
 
 //Login
@@ -51,3 +53,7 @@ Route::get('produccion/{id}', [ProduccionController::class, 'index']);
 //Route::get('producciones/base', [ProduccionController::class, 'list']); // sin relaciones (opcional)
 Route::post('produccion/nuevo', [ProduccionController::class, 'store']);
 Route::post('produccion/eliminar', [ProduccionController::class, 'destroy']);
+
+
+//insumos
+Route::apiResource('insumos', InsumoController::class);
